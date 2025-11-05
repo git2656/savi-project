@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAVI Support Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="header">
+    <h1>Support & Help Center</h1>
+    <p>Report issues, track requests, or get instant help.</p>
+  </div>
+
+  <div class="main-layout">
+    <div class="left-section">
+      <h2>This is the Support Page</h2>
+      <p>Need help? Use the form on the right to report any issue you encounter.</p>
+    </div>
+
+    <div class="right-section">
+      <div class="tabs">
+        <button class="active">Report Issue</button>
+        <button>FAQs</button>
+      </div>
+
+      <div class="card">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, msg in messages %}
+              <div class="alert {{ category }}">{{ msg }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <h2>Report an Issue</h2>
+        <form action="/submit" method="POST" enctype="multipart/form-data">
+          <label>Issue Type</label>
+          <select name="issue_type">
+            <option>Login / Registration</option>
+            <option>Payment</option>
+            <option>Bug / Error</option>
+            <option>UI / UX</option>
+            <option>Other</option>
+          </select>
+
+          <label>Description</label>
+          <textarea name="description" placeholder="Describe your issue..."></textarea>
+
+          <label>Screenshot (optional)</label>
+          <input type="file" name="screenshot">
+
+          <button type="submit">Submit Report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 SAVI Interface Support | Designed by [Your Name]
+  </footer>
+</body>
+</html>
